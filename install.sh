@@ -335,6 +335,18 @@ sleep 10
 print_info "בדיקה סופית..."
 docker-compose ps
 
+# ========================================================================
+#                     העתקת סקריפטים לניהול
+# ========================================================================
+
+print_info "מעתיק סקריפטים לניהול..."
+mkdir -p $INSTALL_DIR/scripts
+if [ -f "${SCRIPTS_DIR}/rotate-passwords.sh" ]; then
+    cp "${SCRIPTS_DIR}/rotate-passwords.sh" "$INSTALL_DIR/scripts/"
+    chmod +x "$INSTALL_DIR/scripts/rotate-passwords.sh"
+    print_success "סקריפט החלפת סיסמאות הועתק ל-$INSTALL_DIR/scripts/"
+fi
+
 SERVER_IP=$(curl -s ifconfig.me)
 
 restart_ssh "$SSH_PORT"
@@ -404,9 +416,10 @@ $([ $TAILSCALE_INSTALLED -eq 0 ] && echo "   Tailscale: ${TAILSCALE_IP}")
 
 🛠️ פקודות:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   סטטוס:     cd ${INSTALL_DIR}/supabase/docker && docker-compose ps
-   לוגים:     cd ${INSTALL_DIR}/supabase/docker && docker-compose logs -f
-   רסטארט:    cd ${INSTALL_DIR}/supabase/docker && docker-compose restart
+   סטטוס:           cd ${INSTALL_DIR}/supabase/docker && docker-compose ps
+   לוגים:           cd ${INSTALL_DIR}/supabase/docker && docker-compose logs -f
+   רסטארט:          cd ${INSTALL_DIR}/supabase/docker && docker-compose restart
+   החלפת סיסמאות:   bash ${INSTALL_DIR}/scripts/rotate-passwords.sh
 
 ⚠️  חשוב מאוד:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
