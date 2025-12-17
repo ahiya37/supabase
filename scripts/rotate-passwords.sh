@@ -214,7 +214,7 @@ User: postgres
 Password: $NEW_POSTGRES_PASSWORD
 
 Dashboard: http://100.66.73.12:8000
-Username: supabase
+Username: admin
 Password: $NEW_DASHBOARD_PASSWORD
 CREDS
 
